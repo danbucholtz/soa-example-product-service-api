@@ -68,9 +68,26 @@ var getProductsByCategoryId = function(accessToken, categoryId){
 	return deferred.promise;
 };
 
+var deleteCategory = function(accessToken, id){
+	var deferred = Q.defer();
+
+	var url = utils.createBaseUrl(config.productServiceIp, config.productServicePort);
+
+	var object = {
+		id: id
+	};
+
+	utils.postJsonWithAccessToken(accessToken, object, url + "/products/delete").then(function(response){
+		deferred.resolve(response);
+	});
+
+	return deferred.promise;
+};
+
 module.exports = {
 	createProduct: createProduct,
 	getProductById: getProductById,
 	getProducts: getProducts,
-	getProductsByCategoryId: getProductsByCategoryId
+	getProductsByCategoryId: getProductsByCategoryId,
+	deleteCategory: deleteCategory
 };
