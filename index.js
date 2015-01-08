@@ -56,8 +56,21 @@ var getProducts = function(accessToken){
 	return deferred.promise;
 };
 
+var getProductsByCategoryId = function(accessToken, categoryId){
+	var deferred = Q.defer();
+
+	var url = utils.createBaseUrl(config.productServiceIp, config.productServicePort);
+	
+	utils.getWithAccessToken(accessToken, url + "/products/category/" + categoryId).then(function(products){
+		deferred.resolve(products);
+	});
+
+	return deferred.promise;
+};
+
 module.exports = {
 	createProduct: createProduct,
 	getProductById: getProductById,
-	getProducts: getProducts
+	getProducts: getProducts,
+	getProductsByCategoryId: getProductsByCategoryId
 };
