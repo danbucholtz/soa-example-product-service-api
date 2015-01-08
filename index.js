@@ -7,13 +7,16 @@ var config = require("soa-example-service-config").config();
 
 var redisUtil = require('soa-example-redis-util');
 
-var createProduct = function(accessToken, name){
+var createProduct = function(accessToken, name, price, categoryId, description){
 	var deferred = Q.defer();
 
 	var url = utils.createBaseUrl(config.productServiceIp, config.productServicePort);
 
 	var object = {
-		name: name
+		name: name,
+		price: price,
+		categoryId: categoryId,
+		description: description
 	};
 
 	utils.postJsonWithAccessToken(accessToken, object, url + "/products").then(function(response){
